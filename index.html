@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Пример сайта</title>
+  <style>
+    body {
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .button {
+      border: 2px solid #800080;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #800080;
+      background-color: transparent;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #800080;
+      color: white;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+  <script>
+    function showLinks() {
+      var button = document.getElementById("show-button");
+      var links = document.getElementsByClassName("link");
+      var homeButton = document.getElementById("home-button");
+
+      button.classList.add("hidden");
+      homeButton.classList.remove("hidden");
+
+      for (var i = 0; i < links.length; i++) {
+        links[i].classList.remove("hidden");
+      }
+    }
+  </script>
+</head>
+<body>
+  <button id="show-button" class="button" onclick="showLinks()">Показать</button>
+
+  <div class="link hidden">
+    <a href="https://vk.com/winsentsweet">Вконтакте</a>
+  </div>
+  <br>
+  <div class="link hidden">
+    <a href="https://t.me/winsentsweet">Telegram</a>
+  </div>
+  <br>
+  <div class="link hidden">
+    <a href="https://t.me/luxuryshopping_bot">Utilit shop</a>
+  </div>
+  <br>
+  <div class="link hidden">
+    <a href="https://t.me/digital_leak">Soft from sata</a>
+  </div>
+  <br>
+  <div class="link hidden">
+    <a href="https://vk.link/ws.project">WsProject</a>
+  </div>
+  <br>
+  <div class="link hidden">
+    <a href="http://vk.com/meopium">MeOpium</a>
+  </div>
+<br>
+  <button id="home-button" class="button hidden" onclick="location.href='https://hwsata.github.io/mew';">На главную</button>
+</body>
+</html>
