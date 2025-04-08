@@ -1,81 +1,84 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>линки</title>
-  <style>
-    body {
-      background-color: black;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
+import React, { useState } from 'react';
 
-    .button {
-      border: 2px solid #800080;
-      border-radius: 5px;
-      padding: 10px 20px;
-      font-size: 16px;
-      color: #800080;
-      background-color: transparent;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
+interface LinkItem {
+  href: string;
+  text: string;
+}
 
-    .button:hover {
-      background-color: #800080;
-      color: white;
-    }
+const NeonLinkPage: React.FC = () => {
+  const [showLinks, setShowLinks] = useState<boolean>(false);
 
-    .hidden {
-      display: none;
-    }
-  </style>
-  <script>
-    function showLinks() {
-      var button = document.getElementById("show-button");
-      var links = document.getElementsByClassName("link");
-      var homeButton = document.getElementById("home-button");
+  const links: LinkItem[] = [
+    { href: "https://vk.com/winsentsweet", text: "Вконтакте" },
+    { href: "https://t.me/winsentsweet", text: "Telegram" },
+    { href: "https://t.me/luxuryshopping_bot", text: "Utilit shop" },
+    { href: "https://t.me/digital_leak", text: "Soft from sata" },
+    { href: "https://vk.link/ws.project", text: "WsProject" },
+    { href: "http://vk.com/meopium", text: "MeOpium" }
+  ];
 
-      button.classList.add("hidden");
-      homeButton.classList.remove("hidden");
+  // Base button classes for consistent styling
+  const baseButtonClasses = "border-2 rounded-lg px-8 py-4 text-xl bg-transparent transition-all duration-300 ease-in-out cursor-pointer transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-950";
+  const neonFuchsiaButtonClasses = "border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-black hover:shadow-lg hover:shadow-fuchsia-500/50 focus:ring-fuchsia-500";
+  const neonCyanButtonClasses = "border-cyan-500 text-cyan-500 hover:bg-cyan-500 hover:text-black hover:shadow-lg hover:shadow-cyan-500/50 focus:ring-cyan-500";
 
-      for (var i = 0; i < links.length; i++) {
-        links[i].classList.remove("hidden");
-      }
-    }
-  </script>
-</head>
-<body>
-  <button id="show-button" class="button" onclick="showLinks()">Показать</button>
+  return (
+    <div className="bg-gray-950 min-h-screen flex flex-col items-center justify-center p-6 text-white font-sans overflow-hidden">
 
-  <div class="link hidden">
-    <a href="https://vk.com/winsentsweet">Вконтакте</a>
-  </div>
-  <br>
-  <div class="link hidden">
-    <a href="https://t.me/winsentsweet">Telegram</a>
-  </div>
-  <br>
-  <div class="link hidden">
-    <a href="https://t.me/luxuryshopping_bot">Utilit shop</a>
-  </div>
-  <br>
-  <div class="link hidden">
-    <a href="https://t.me/digital_leak">Soft from sata</a>
-  </div>
-  <br>
-  <div class="link hidden">
-    <a href="https://vk.link/ws.project">WsProject</a>
-  </div>
-  <br>
-  <div class="link hidden">
-    <a href="http://vk.com/meopium">MeOpium</a>
-  </div>
-<br>
-  <button id="home-button" class="button hidden" onclick="location.href='https://hwsata.github.io/mew';">На главную</button>
-<br>
-  <p><a href="test.html">GL</a></p>
-</body>
-</html>
+      {/* Show Button - Fades out */}
+      <button
+        id="show-button"
+        className={`${baseButtonClasses} ${neonFuchsiaButtonClasses} mb-8 ${showLinks ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100 scale-100'}`}
+        onClick={() => setShowLinks(true)}
+        aria-hidden={showLinks}
+      >
+        Показать
+      </button>
+
+      {/* Links Container & Home Button - Fades in */}
+      <div
+        className={`flex flex-col items-center w-full max-w-md transition-all duration-700 ease-in-out ${showLinks ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 pointer-events-none -translate-y-5'}`}
+      >
+        {/* Links */}
+        <div className="flex flex-col items-center gap-y-5 w-full mb-8">
+          {links.map((link, index) => (
+            <div
+              key={index}
+              // Glassmorphism effect for link blocks
+              className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-5 w-full text-center shadow-lg"
+              // Staggered animation delay (optional, requires animation setup or manual style)
+              // style={{ transitionDelay: `${showLinks ? index * 100 : 0}ms` }}
+            >
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-fuchsia-400 hover:text-fuchsia-300 text-lg font-medium hover:underline transition-colors duration-200"
+              >
+                {link.text}
+              </a>
+            </div>
+          ))}
+        </div>
+
+       {/* Home Button */}
+       <button
+         id="home-button"
+         className={`${baseButtonClasses} ${neonCyanButtonClasses}`}
+         onClick={() => window.location.href = 'https://hwsata.github.io/mew'}
+       >
+         На главную
+       </button>
+      </div>
+
+      {/* GL Link - Fades in with others */}
+      <p className={`mt-8 transition-opacity duration-700 ease-in-out ${showLinks ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <a href="test.html" className="text-gray-500 hover:text-cyan-400 transition-colors duration-200 hover:underline">
+          GL
+        </a>
+      </p>
+    </div>
+  );
+};
+
+export default NeonLinkPage;
